@@ -1,8 +1,8 @@
 package fo.looknorth.looknorthapi.database;
 
-import fo.looknorth.looknorthapi.model.AverageOilUsage;
+import fo.looknorth.looknorthapi.model.AverageOilConsumption;
 import fo.looknorth.looknorthapi.model.Machine;
-import fo.looknorth.looknorthapi.model.OilUsage;
+import fo.looknorth.looknorthapi.model.OilConsumption;
 import fo.looknorth.looknorthapi.model.Product;
 import fo.looknorth.looknorthapi.model.Production;
 import fo.looknorth.utilities.Organiser;
@@ -37,40 +37,40 @@ public interface LooknorthDAO {
    * Gets the oil usage for the whole system
    * @return the oil usage in L/min, as a float.
    */
-  public abstract List<OilUsage> getOilUsage();
+  public abstract List<OilConsumption> getOilConsumption();
   
    /**
    * Gets the oil usage for the given date
    * @return a list with oil usage objects.
    */
-  public abstract List<OilUsage> getOilUsageByDate(Timestamp date);
+  public abstract List<OilConsumption> getOilConsumptionByDate(Timestamp date);
   
   /**
    * Gets the last inserted oil usage entry
    * @return the oil usage object.
    */
-  public abstract OilUsage getLastOilUsage();
+  public abstract OilConsumption getLastOilConsumption();
   
   /**
    * Finds the list with average oil usage 
-   * @return a list of AverageOilUsage objects
+   * @return a list of AverageOilConsumption objects
    */
-  public abstract List<AverageOilUsage> getAverageOilUsage();
+  public abstract List<AverageOilConsumption> getAverageOilConsumption();
   
   /**
    * Finds the average oil usage for the given combination
    * @param productCombination String with the product id's
-   * @return AverageOilUsage object
+   * @return AverageOilConsumption object
    * N.B. products are separated by '-'!
    */
-  public abstract AverageOilUsage getAverageOilUsage(String productCombination);
+  public abstract AverageOilConsumption getAverageOilConsumption(String productCombination);
   
   /**
    * Finds a list of average oil usage details for a given machine
    * @param machineId the machine identification number.
-   * @return a List of AverageOilUsage objects
+   * @return a List of AverageOilConsumption objects
    */
-  public abstract List<AverageOilUsage> getAverageOilUsage(int machineId);
+  public abstract List<AverageOilConsumption> getAverageOilConsumption(int machineId);
   
   /**
    * Finds an average oil usage object for the given machine and product
@@ -78,7 +78,7 @@ public interface LooknorthDAO {
    * @param productId
    * @return 
    */
-  public abstract AverageOilUsage getAverageOilUsage(int machineId, int productId);
+  public abstract AverageOilConsumption getAverageOilConsumption(int machineId, int productId);
   /**
    * tells which product is active in the system
    * @param machine the machine in the system

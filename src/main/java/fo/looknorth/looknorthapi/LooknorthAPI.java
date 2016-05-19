@@ -139,52 +139,52 @@ public class LooknorthAPI {
       return gson.toJson(production);
     });
     
-    //oil usage
-    get("/oil-usage", (req, res) -> {
-      List<OilUsage> list = dao.getOilUsage();
-       Type oilUsageType = new TypeToken<Collection<OilUsage>>(){}.getType();
-      return gson.toJson(list, oilUsageType);
+    //oil consumption
+    get("/oil-consumption", (req, res) -> {
+      List<OilConsumption> list = dao.getOilConsumption();
+       Type oilConsumptionType = new TypeToken<Collection<OilConsumption>>(){}.getType();
+      return gson.toJson(list, oilConsumptionType);
     });
     
-    get("/oil-usage/date/:date", (req, res) -> {
+    get("/oil-consumption/date/:date", (req, res) -> {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
       Date parsedDate = dateFormat.parse(req.params(":date"));
       Timestamp date = new java.sql.Timestamp(parsedDate.getTime());
-      Type oilUsageType = new TypeToken<Collection<OilUsage>>(){}.getType();
-      List<OilUsage> list = dao.getOilUsageByDate(date);
-      return gson.toJson(list, oilUsageType);
+      Type oilConsumptionType = new TypeToken<Collection<OilConsumption>>(){}.getType();
+      List<OilConsumption> list = dao.getOilConsumptionByDate(date);
+      return gson.toJson(list, oilConsumptionType);
     });
     
-    get("/oil-usage/last", (req, res) -> {
-      OilUsage oilUsage = dao.getLastOilUsage();
-      return gson.toJson(oilUsage);
+    get("/oil-consumption/last", (req, res) -> {
+      OilConsumption oilConsumption = dao.getLastOilConsumption();
+      return gson.toJson(oilConsumption);
     });
     
-    //average oil usage
-    get("/average-oil-usage", (req, res) -> {
-      List<AverageOilUsage> list = dao.getAverageOilUsage();
-      Type averageOilUsageType = new TypeToken<Collection<AverageOilUsage>>(){}.getType();
-      return gson.toJson(list, averageOilUsageType);
+    //average oil consumption
+    get("/average-oil-consumption", (req, res) -> {
+      List<AverageOilConsumption> list = dao.getAverageOilConsumption();
+      Type averageOilConsumptionType = new TypeToken<Collection<AverageOilConsumption>>(){}.getType();
+      return gson.toJson(list, averageOilConsumptionType);
     });
     
-    get("/average-oil-usage/product-combination/:combination", (req, res) -> {
+    get("/average-oil-consumption/product-combination/:combination", (req, res) -> {
       String combination = req.params(":combination");
-      AverageOilUsage averageOilUsage = dao.getAverageOilUsage(combination);
-      return gson.toJson(averageOilUsage);
+      AverageOilConsumption averageOilConsumption = dao.getAverageOilConsumption(combination);
+      return gson.toJson(averageOilConsumption);
     });
     
-    get("/average-oil-usage/machine/:machineId", (req, res) -> {
+    get("/average-oil-consumption/machine/:machineId", (req, res) -> {
       int machineId = Integer.parseInt(req.params(":machineId"));
-      List<AverageOilUsage> list = dao.getAverageOilUsage(machineId);
-      Type averageOilUsageType = new TypeToken<Collection<AverageOilUsage>>(){}.getType();
-      return gson.toJson(list, averageOilUsageType);
+      List<AverageOilConsumption> list = dao.getAverageOilConsumption(machineId);
+      Type averageOilConsumptionType = new TypeToken<Collection<AverageOilConsumption>>(){}.getType();
+      return gson.toJson(list, averageOilConsumptionType);
     });
     
-    get("/average-oil-usage/machine/:machineId/product/:productId", (req, res) -> {
+    get("/average-oil-consumption/machine/:machineId/product/:productId", (req, res) -> {
       int machineId = Integer.parseInt(req.params(":machineId"));
       int productId = Integer.parseInt(req.params(":productId"));
-      AverageOilUsage averageOilUsage = dao.getAverageOilUsage(machineId, productId);
-      return gson.toJson(averageOilUsage);
+      AverageOilConsumption averageOilConsumption = dao.getAverageOilConsumption(machineId, productId);
+      return gson.toJson(averageOilConsumption);
     });
     
     

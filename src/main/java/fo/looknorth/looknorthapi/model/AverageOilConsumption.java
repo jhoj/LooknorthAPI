@@ -7,17 +7,17 @@ package fo.looknorth.looknorthapi.model;
  *
  * @author jakup
  */
-public class AverageOilUsage {
+public class AverageOilConsumption {
   
   private int id;
   private String machineCombination;
   private String productCombination;
   private float average;
 
-  public AverageOilUsage() {
+  public AverageOilConsumption() {
   }
 
-  public AverageOilUsage(int id, String machineCombination, String productCombination, float average) {
+  public AverageOilConsumption(int id, String machineCombination, String productCombination, float average) {
     this.id = id;
     this.machineCombination = machineCombination;
     this.productCombination = productCombination;

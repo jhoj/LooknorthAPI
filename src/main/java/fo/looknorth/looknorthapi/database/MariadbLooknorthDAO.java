@@ -1,8 +1,8 @@
 package fo.looknorth.looknorthapi.database;
 
-import fo.looknorth.looknorthapi.model.AverageOilUsage;
+import fo.looknorth.looknorthapi.model.AverageOilConsumption;
 import fo.looknorth.looknorthapi.model.Machine;
-import fo.looknorth.looknorthapi.model.OilUsage;
+import fo.looknorth.looknorthapi.model.OilConsumption;
 import fo.looknorth.looknorthapi.model.Product;
 import fo.looknorth.looknorthapi.model.Production;
 import fo.looknorth.utilities.Organiser;
@@ -707,8 +707,8 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
   }
 
   @Override
-  public List<OilUsage> getOilUsage() {     
-        List<OilUsage> list = new ArrayList<>();
+  public List<OilConsumption> getOilConsumption() {     
+        List<OilConsumption> list = new ArrayList<>();
         
         String query = "select * from looknorth.oil_usage";
         
@@ -721,13 +721,13 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         
         while (resultSet.next())
         {
-          //create OilUsage object
+          //create OilConsumption object
           int id = resultSet.getInt("id");
           int machineNumber = resultSet.getInt("m_id");
           float liters = resultSet.getFloat("liters");
           Timestamp recorded = resultSet.getTimestamp("recorded");
           String s = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(recorded);
-          list.add(new OilUsage(id, machineNumber, liters, s));
+          list.add(new OilConsumption(id, machineNumber, liters, s));
         } } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
       } finally {
@@ -750,8 +750,8 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
   }
 
   @Override
-  public List<OilUsage> getOilUsageByDate(Timestamp date) {
-    List<OilUsage> list = new ArrayList<>();
+  public List<OilConsumption> getOilConsumptionByDate(Timestamp date) {
+    List<OilConsumption> list = new ArrayList<>();
     String query = "SELECT * FROM oil_usage " +
                    "WHERE recorded >= ? " +
                    "AND recorded < ? + INTERVAL 1 DAY;";
@@ -767,13 +767,13 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         
         while (resultSet.next())
         {
-          //create OilUsage object
+          //create OilConsumption object
           int id = resultSet.getInt("id");
           int machineNumber = resultSet.getInt("m_id");
           float liters = resultSet.getFloat("liters");
           Timestamp recorded = resultSet.getTimestamp("recorded");
           String s = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(recorded);
-          list.add(new OilUsage(id, machineNumber, liters, s));
+          list.add(new OilConsumption(id, machineNumber, liters, s));
         } 
     } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -782,8 +782,8 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
   }
 
   @Override
-  public OilUsage getLastOilUsage() {
-    OilUsage oilUsage = null;
+  public OilConsumption getLastOilConsumption() {
+    OilConsumption oilConsumption = null;
     
     String query = "SELECT * FROM looknorth.oil_usage " + 
     "ORDER BY recorded DESC " +
@@ -799,22 +799,22 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         
         if (resultSet.next())
         {
-          //create OilUsage object
+          //create OilConsumption object
           int id = resultSet.getInt("id");
           int machineNumber = resultSet.getInt("m_id");
           float liters = resultSet.getFloat("liters");
           Timestamp recorded = resultSet.getTimestamp("recorded");
           String s = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(recorded);
-          oilUsage = new OilUsage(id, machineNumber, liters, s);
+          oilConsumption = new OilConsumption(id, machineNumber, liters, s);
         } } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
       }
-    return oilUsage;
+    return oilConsumption;
   }
 
   @Override
-  public List<AverageOilUsage> getAverageOilUsage() {
-   List<AverageOilUsage> list = new ArrayList<>();
+  public List<AverageOilConsumption> getAverageOilConsumption() {
+   List<AverageOilConsumption> list = new ArrayList<>();
         
         String query = "select * from looknorth.average_oil_usage";
         
@@ -827,7 +827,7 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         
         while (resultSet.next())
         {
-          //create AverageOilUsage object
+          //create AverageOilConsumption object
           
           int id = resultSet.getInt("id");
           String machineCombination = resultSet.getString("machine_combination");
@@ -835,7 +835,7 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
           float average = resultSet.getFloat("average");
           
           //add to list
-          list.add(new AverageOilUsage(id, machineCombination, productCombination, average));
+          list.add(new AverageOilConsumption(id, machineCombination, productCombination, average));
         } } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
       } finally {
@@ -858,8 +858,8 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
   }
 
   @Override
-  public AverageOilUsage getAverageOilUsage(String productCombination) {
-        AverageOilUsage averageOilUsage = null;
+  public AverageOilConsumption getAverageOilConsumption(String productCombination) {
+        AverageOilConsumption averageOilConsumption = null;
         
         String query = "SELECT * FROM looknorth.average_oil_usage where product_combination = ?";
         
@@ -873,13 +873,13 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         
         if (resultSet.next())
         {
-          //create AverageOilUsage object
+          //create AverageOilConsumption object
           
           int id = resultSet.getInt("id");
           String machineCombination = resultSet.getString("machine_combination");
           String productCombinationn = resultSet.getString("product_combination");
           float average = resultSet.getFloat("average");
-          averageOilUsage = new AverageOilUsage(id, machineCombination, productCombinationn, average);
+          averageOilConsumption = new AverageOilConsumption(id, machineCombination, productCombinationn, average);
         } } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
       } finally {
@@ -898,10 +898,10 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
             }
         }
         }
-      return averageOilUsage;  
+      return averageOilConsumption;  
   }
   
-  private String generateAverageOilUsageStringMachine(int i) throws IllegalArgumentException {
+  private String generateAverageOilConsumptionStringMachine(int i) throws IllegalArgumentException {
     String generatedString = null;
     
     if (i < 1) throw new IllegalArgumentException("number is lower than at actual size of machines.");
@@ -925,7 +925,7 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
     
     return generatedString;
   }
-  private String generateAverageOilUsageStringProduct(int machine, int product) throws IllegalArgumentException {
+  private String generateAverageOilConsumptionStringProduct(int machine, int product) throws IllegalArgumentException {
     String generatedString = null;
     
     if (machine < 1) throw new IllegalArgumentException("number is lower than at actual size of machines.");
@@ -951,8 +951,8 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
   } 
 
   @Override
-  public List<AverageOilUsage> getAverageOilUsage(int machineId) {
-    List<AverageOilUsage> list = new ArrayList<>();
+  public List<AverageOilConsumption> getAverageOilConsumption(int machineId) {
+    List<AverageOilConsumption> list = new ArrayList<>();
         
         String query = "select * from looknorth.average_oil_usage where machine_combination = ?";
         
@@ -961,12 +961,12 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         try {
         connection = MariadbDAOFactory.createConnection();
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, generateAverageOilUsageStringMachine(machineId));
+        preparedStatement.setString(1, generateAverageOilConsumptionStringMachine(machineId));
         ResultSet resultSet = preparedStatement.executeQuery();
         
         while (resultSet.next())
         {
-          //create AverageOilUsage object
+          //create AverageOilConsumption object
           
           int id = resultSet.getInt("id");
           String  machineCombination = resultSet.getString("machine_combination");
@@ -974,7 +974,7 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
           float average = resultSet.getFloat("average");
           
           //add to list
-          list.add(new AverageOilUsage(id, machineCombination, productCombination, average));
+          list.add(new AverageOilConsumption(id, machineCombination, productCombination, average));
         } } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
       } finally {
@@ -997,8 +997,8 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
   }
 
   @Override
-  public AverageOilUsage getAverageOilUsage(int machineId, int productId) {
-    AverageOilUsage averageOilUsage = null;
+  public AverageOilConsumption getAverageOilConsumption(int machineId, int productId) {
+    AverageOilConsumption averageOilConsumption = null;
         
         String query = "select * from looknorth.average_oil_usage "
                 +       "where machine_combination = ? and product_combination = ?;";
@@ -1008,13 +1008,13 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
         try {
         connection = MariadbDAOFactory.createConnection();
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, generateAverageOilUsageStringMachine(machineId));
-        preparedStatement.setString(2, generateAverageOilUsageStringProduct(machineId, productId));
+        preparedStatement.setString(1, generateAverageOilConsumptionStringMachine(machineId));
+        preparedStatement.setString(2, generateAverageOilConsumptionStringProduct(machineId, productId));
         ResultSet resultSet = preparedStatement.executeQuery();
         
         if (resultSet.next())
         {
-          //create AverageOilUsage object
+          //create AverageOilConsumption object
           
           int id = resultSet.getInt("id");
           String machineCombination = resultSet.getString("machine_combination");
@@ -1022,7 +1022,7 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
           float average = resultSet.getFloat("average");
           
           //add to list
-          averageOilUsage = new AverageOilUsage(id, machineCombination, productCombination, average);
+          averageOilConsumption = new AverageOilConsumption(id, machineCombination, productCombination, average);
         } } catch (SQLException ex) {
         Logger.getLogger(MariadbLooknorthDAO.class.getName()).log(Level.SEVERE, null, ex);
       } finally {
@@ -1041,7 +1041,7 @@ public class MariadbLooknorthDAO implements LooknorthDAO {
             }
         }
         }
-      return averageOilUsage;  
+      return averageOilConsumption;  
   }
  
 }

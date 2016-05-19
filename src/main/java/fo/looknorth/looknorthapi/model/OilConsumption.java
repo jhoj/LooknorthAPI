@@ -7,21 +7,21 @@ package fo.looknorth.looknorthapi.model;
  *
  * @author jakup
  */
-public class OilUsage {
+public class OilConsumption {
   
   private int id;
   private int machineId;
   private float liters;
   private String recorded;
 
-  public OilUsage(int id, int machineId, float liters, String recorded) {
+  public OilConsumption(int id, int machineId, float liters, String recorded) {
     this.id = id;
     this.machineId = machineId;
     this.liters = liters;
     this.recorded = recorded;
   }
 
-  public OilUsage() {
+  public OilConsumption() {
   }
 
   public int getId() {
